@@ -8,11 +8,8 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         int t = sc.nextInt(); sc.nextLine();
-        System.out.printf("Test Cases: %d", t);
-        System.out.println();
         for (int i = 0; i < t; i++) {
             int l = sc.nextInt(); sc.nextLine();
-            System.out.println("No. of line: " + l);
             int x = process(l, 0, new Stack<>());
             System.out.println(x);
         }
