@@ -10,25 +10,40 @@ public class Main {
         int t = sc.nextInt(); sc.nextLine();
         for (int i = 0; i < t; i++) {
             int l = sc.nextInt(); sc.nextLine();
-            int x = process(l, 0, new Stack<>());
+            int x = p(l).x;
             System.out.println(x);
         }
     }
 
-    public static int process(int l, int x, Stack<Integer> nStack) {
-        if (l == 0) return x;
+    public static R p (int l) {
+        if (l == 0) return new R(0, 0);
 
         String input = sc.nextLine();
         if (input.startsWith("add")) {
-            return  process(--l, ++x, nStack);
+            R r = p(--l);
+            return new R(r.x + 1, r.l);
         }
         else if (input.startsWith("for")) {
             int n = Integer.parseInt(input.substring(4));
-            nStack.push(n);
-            return  x + process(--l, 0, nStack);
+            R r = p(--l);
+            r.x *= n;
+
+            R r2 = p(r.l);
+            return new R(r.x + r2.x, r2.l);
         }
-        else { // command == "end"
-            return process(--l, x * nStack.pop(),  nStack);
+        else {
+            return new R(0, --l);
         }
+    }
+
+}
+
+class R {
+    public int x;
+    public int l;
+
+    public R(int x, int l ) {
+        this.x = x;
+        this.l = l;
     }
 }
